@@ -1,8 +1,11 @@
 import Button from './Button'
 
-export default function Friend({ friend }) {
+export default function Friend({ friend, onSelection, selectedFriend }) {
+    // const isSelected = selectedFriend ? selectedFriend.id === friend.id : false
+    const isSelected = selectedFriend?.id === friend.id
+
     return (
-        <li>
+        <li className={isSelected ? 'selected' : ''}>
             <img src={friend.image} alt={friend.name} />
             <h3>{friend.name}</h3>
             {friend.balance < 0 ? (
@@ -14,7 +17,9 @@ export default function Friend({ friend }) {
             ) : (
                 <p>{`You and ${friend.name} are even`}</p>
             )}
-            <Button>Select</Button>
+            <Button onClick={() => onSelection(friend)}>
+                {isSelected ? 'Close' : 'Select'}
+            </Button>
         </li>
     )
 }
